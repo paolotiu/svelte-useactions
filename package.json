@@ -1,6 +1,6 @@
 {
   "name": "svelte-useactions",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,6 +12,19 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc -p .",
-    "watch": "tsc --watch -p ."
+    "watch": "tsc --watch -p .",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paolotiu/svelte-useactions.git"
+  },
+  "devDependencies": {
+    "semantic-release": "^17.4.4"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   }
 }
