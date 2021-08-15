@@ -38,10 +38,7 @@ export type Actions<
 /**
  * A wrapper function that provides intellsense
  */
-export const createAction = <
-  Node extends HTMLElement,
-  Params extends Record<string, unknown> | undefined = undefined
->(
+export const createAction = <Node extends HTMLElement, Params extends any | undefined = undefined>(
   cb: Action<Node, Params>
 ): Action<Node, Params> => {
   return cb;
