@@ -1,7 +1,7 @@
 /**
  * The return type of an action.
  */
-export type SvelteActionReturn<Params> = {
+export type ActionReturn<Params> = {
   destroy?: () => void;
   update?: (params: Params) => void;
 } | void;
@@ -14,15 +14,15 @@ export type ActionLike<Node extends HTMLElement> = (node: Node, params: any) => 
 /**
  * A primitive Action
  */
-export type Action<Node extends HTMLElement, Params extends any = undefined> = (
+export type Action<Node extends HTMLElement = HTMLElement, Params extends any = undefined> = (
   node: Node,
   params?: Params
-) => SvelteActionReturn<Params>;
+) => ActionReturn<Params>;
 
 /**
  * A list of actions
  */
-export type Actions<
+export type ActionList<
   Node extends HTMLElement,
   Arr extends Array<ActionLike<Node>> = Array<ActionLike<Node>>
 > = [
@@ -36,20 +36,11 @@ export type Actions<
 ];
 
 /**
- * A wrapper function that provides intellsense
- */
-export const createAction = <Node extends HTMLElement, Params extends any | undefined = undefined>(
-  cb: Action<Node, Params>
-): Action<Node, Params> => {
-  return cb;
-};
-
-/**
  * A wrapper function that provides intellisense
  */
 export const createActionList = <Node extends HTMLElement, Arr extends Array<ActionLike<Node>>>(
-  actions: Actions<Node, Arr>
-) => {
+  actions: ActionList<Node, Arr>
+): ActionList<Node, Arr> => {
   return actions;
 };
 
@@ -59,9 +50,9 @@ export const createActionList = <Node extends HTMLElement, Arr extends Array<Act
  */
 export const useActions = <Node extends HTMLElement, Arr extends Array<ActionLike<Node>>>(
   node: Node,
-  actions: Actions<Node, Arr>
+  actions: ActionList<Node, Arr>
 ) => {
-  const actionReturns: SvelteActionReturn<Record<string, any>>[] = [];
+  const actionReturns: ActionReturn<Record<string, any>>[] = [];
 
   if (actions) {
     actions.forEach((currentTuple) => {
@@ -73,7 +64,7 @@ export const useActions = <Node extends HTMLElement, Arr extends Array<ActionLik
   }
 
   return {
-    update(actions: Actions<Node, Arr>) {
+    update(actions: ActionList<Node, Arr>) {
       actions.forEach((currentTuple, i) => {
         const currentReturn = actionReturns[i];
         const params = currentTuple[1];
