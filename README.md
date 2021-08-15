@@ -96,9 +96,9 @@ Used in tandem with the `use` directive. Accepts an [action list](#actionlist) a
 ```svelte
 <script lang="ts">
   import { useActions } from 'svelte-useactions';
-  import type { Actions } from 'svelte-useactions';
+  import type { ActionList } from 'svelte-useactions';
 
-  export let use: Actions<HTMLDivElement> = [];
+  export let use: ActionList<HTMLDivElement> = [];
 </script>
 
 <input use:useActions={use}
